@@ -1,0 +1,25 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="go build github.com/Netcracker/qubership-disaster-recovery-daemon/_demo" type="GoApplicationRunConfiguration" factoryName="Go Application" nameIsGenerated="true">
+    <module name="disaster-recovery-daemon" />
+    <working_directory value="$PROJECT_DIR$" />
+    <parameters value="--kubeconfig $PROJECT_DIR$/_demo/kubeconfig" />
+    <envs>
+      <env name="DISASTER_RECOVERY_MODE_PATH" value="data.mode" />
+      <env name="DISASTER_RECOVERY_NOWAIT_AS_STRING" value="true" />
+      <env name="DISASTER_RECOVERY_NOWAIT_PATH" value="data.noWait" />
+      <env name="DISASTER_RECOVERY_STATUS_COMMENT_PATH" value="data.status_comment" />
+      <env name="DISASTER_RECOVERY_STATUS_MODE_PATH" value="data.status_mode" />
+      <env name="DISASTER_RECOVERY_STATUS_STATUS_PATH" value="data.status_status" />
+      <env name="HEALTH_MAIN_SERVICES_ACTIVE" value="statefulset consul-server" />
+      <env name="IN_CLUSTER_CONFIG" value="false" />
+      <env name="NAMESPACE" value="consul-service" />
+      <env name="RESOURCE_FOR_DR" value="&quot;&quot; v1 configmaps consul-dr-cm" />
+      <env name="TREAT_STATUS_AS_FIELD" value="true" />
+      <env name="USE_DEFAULT_PATHS" value="false" />
+    </envs>
+    <kind value="PACKAGE" />
+    <package value="github.com/Netcracker/qubership-disaster-recovery-daemon/_demo" />
+    <directory value="$PROJECT_DIR$" />
+    <method v="2" />
+  </configuration>
+</component>
