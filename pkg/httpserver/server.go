@@ -3,7 +3,7 @@ package httpserver
 import (
 	"crypto/tls"
 	"fmt"
-	"git.netcracker.com/PROD.Platform.Streaming/disaster-recovery-daemon/config"
+	"github.com/Netcracker/disaster-recovery-daemon/config"
 	"net/http"
 )
 
