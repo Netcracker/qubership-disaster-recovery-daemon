@@ -234,7 +234,7 @@ DRD extension is a golang application which starts server and controller with fu
 ## Extension Repository
 
 1. Make a repository or folder for your golang application.
-2. In `go.mod` add import `git.netcracker.com/PROD.Platform.Streaming/disaster-recovery-daemon` with actual [version](https://git.netcracker.com/PROD.Platform.Streaming/disaster-recovery-daemon/-/tags).
+2. In `go.mod` add import `github.com/Netcracker/disaster-recovery-daemon` with actual [version](https://github.com/Netcracker/disaster-recovery-daemon/-/tags).
 3. Implement `Main.go` which starts server and controller with function which implements custom DR logic and custom health check logic.
 4. Build a Docker image with your golang application.
 5. Add a new deployment or container for DRD application to your Helm chart, with corresponding [environment variables](#environment-variables).
@@ -332,11 +332,11 @@ package main
 
 import (
 	"context"
-	"git.netcracker.com/PROD.Platform.Streaming/disaster-recovery-daemon/api/entity"
-	"git.netcracker.com/PROD.Platform.Streaming/disaster-recovery-daemon/client"
-	"git.netcracker.com/PROD.Platform.Streaming/disaster-recovery-daemon/config"
-	"git.netcracker.com/PROD.Platform.Streaming/disaster-recovery-daemon/controller"
-	"git.netcracker.com/PROD.Platform.Streaming/disaster-recovery-daemon/server"
+	"github.com/Netcracker/disaster-recovery-daemon/api/entity"
+	"github.com/Netcracker/disaster-recovery-daemon/client"
+	"github.com/Netcracker/disaster-recovery-daemon/config"
+	"github.com/Netcracker/disaster-recovery-daemon/controller"
+	"github.com/Netcracker/disaster-recovery-daemon/server"
 	"k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime"

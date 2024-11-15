@@ -3,8 +3,8 @@ package usecase
 import (
 	"encoding/json"
 	"fmt"
-	"git.netcracker.com/PROD.Platform.Streaming/disaster-recovery-daemon/api/entity"
-	"git.netcracker.com/PROD.Platform.Streaming/disaster-recovery-daemon/config"
+	"github.com/Netcracker/disaster-recovery-daemon/api/entity"
+	"github.com/Netcracker/disaster-recovery-daemon/config"
 	"log"
 	"net/http"
 	"strings"

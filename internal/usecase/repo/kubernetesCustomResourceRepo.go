@@ -2,8 +2,8 @@ package repo
 
 import (
 	"context"
-	"git.netcracker.com/PROD.Platform.Streaming/disaster-recovery-daemon/api/entity"
-	"git.netcracker.com/PROD.Platform.Streaming/disaster-recovery-daemon/config"
+	"github.com/Netcracker/disaster-recovery-daemon/api/entity"
+	"github.com/Netcracker/disaster-recovery-daemon/config"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"k8s.io/apimachinery/pkg/runtime/schema"

@@ -1,9 +1,9 @@
 package main
 
 import (
-	"git.netcracker.com/PROD.Platform.Streaming/disaster-recovery-daemon/config"
-	"git.netcracker.com/PROD.Platform.Streaming/disaster-recovery-daemon/server"
-	"git.netcracker.com/PROD.Platform.Streaming/disaster-recovery-daemon/utils"
+	"github.com/Netcracker/disaster-recovery-daemon/config"
+	"github.com/Netcracker/disaster-recovery-daemon/server"
+	"github.com/Netcracker/disaster-recovery-daemon/utils"
 	"log"
 	"log/slog"
 	"os"

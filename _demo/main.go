@@ -2,11 +2,11 @@ package main
 
 import (
 	"context"
-	"git.netcracker.com/PROD.Platform.Streaming/disaster-recovery-daemon/api/entity"
-	"git.netcracker.com/PROD.Platform.Streaming/disaster-recovery-daemon/client"
-	"git.netcracker.com/PROD.Platform.Streaming/disaster-recovery-daemon/config"
-	"git.netcracker.com/PROD.Platform.Streaming/disaster-recovery-daemon/controller"
-	"git.netcracker.com/PROD.Platform.Streaming/disaster-recovery-daemon/server"
+	"github.com/Netcracker/disaster-recovery-daemon/api/entity"
+	"github.com/Netcracker/disaster-recovery-daemon/client"
+	"github.com/Netcracker/disaster-recovery-daemon/config"
+	"github.com/Netcracker/disaster-recovery-daemon/controller"
+	"github.com/Netcracker/disaster-recovery-daemon/server"
 	"k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime"

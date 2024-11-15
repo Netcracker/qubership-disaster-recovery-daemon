@@ -1,5 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="go build git.netcracker.com/PROD.Platform.Streaming/disaster-recovery-daemon/_demo" type="GoApplicationRunConfiguration" factoryName="Go Application" nameIsGenerated="true">
+  <configuration default="false" name="go build github.com/Netcracker/disaster-recovery-daemon/_demo" type="GoApplicationRunConfiguration" factoryName="Go Application" nameIsGenerated="true">
     <module name="disaster-recovery-daemon" />
     <working_directory value="$PROJECT_DIR$" />
     <parameters value="--kubeconfig $PROJECT_DIR$/_demo/kubeconfig" />
@@ -18,7 +18,7 @@
       <env name="USE_DEFAULT_PATHS" value="false" />
     </envs>
     <kind value="PACKAGE" />
-    <package value="git.netcracker.com/PROD.Platform.Streaming/disaster-recovery-daemon/_demo" />
+    <package value="github.com/Netcracker/disaster-recovery-daemon/_demo" />
     <directory value="$PROJECT_DIR$" />
     <method v="2" />
   </configuration>

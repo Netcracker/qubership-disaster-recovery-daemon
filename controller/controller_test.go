@@ -2,9 +2,9 @@ package controller
 
 import (
 	"fmt"
-	"git.netcracker.com/PROD.Platform.Streaming/disaster-recovery-daemon/api/entity"
-	repoConfig "git.netcracker.com/PROD.Platform.Streaming/disaster-recovery-daemon/config"
-	"git.netcracker.com/PROD.Platform.Streaming/disaster-recovery-daemon/internal/usecase"
+	"github.com/Netcracker/disaster-recovery-daemon/api/entity"
+	repoConfig "github.com/Netcracker/disaster-recovery-daemon/config"
+	"github.com/Netcracker/disaster-recovery-daemon/internal/usecase"
 	"github.com/stretchr/testify/assert"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"k8s.io/apimachinery/pkg/watch"

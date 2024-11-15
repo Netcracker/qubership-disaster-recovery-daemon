@@ -3,8 +3,8 @@ package usecase
 import (
 	"errors"
 	"fmt"
-	"git.netcracker.com/PROD.Platform.Streaming/disaster-recovery-daemon/api/entity"
-	"git.netcracker.com/PROD.Platform.Streaming/disaster-recovery-daemon/config"
+	"github.com/Netcracker/disaster-recovery-daemon/api/entity"
+	"github.com/Netcracker/disaster-recovery-daemon/config"
 	"strconv"
 	"time"
 )

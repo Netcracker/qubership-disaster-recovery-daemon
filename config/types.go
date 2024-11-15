@@ -1,6 +1,6 @@
 package config
 
-import "git.netcracker.com/PROD.Platform.Streaming/disaster-recovery-daemon/api/entity"
+import "github.com/Netcracker/disaster-recovery-daemon/api/entity"
 
 const (
 	RequiredEnvTemplatedError = "the environment variable '%s' must not be empty"
