@@ -1,5 +1,7 @@
 name: Build Artifacts
 on:
+  release:
+    types: [created]
   push:
     branches:
       - '**'
@@ -37,9 +39,3 @@ jobs:
           push: true
           tags: ghcr.io/netcracker/${{ matrix.component.name }}:${{ env.TAG_NAME }}
           provenance: false
-#      - uses: wangyoucao577/go-release-action@v1
-#        with:
-#          github_token: ${{ secrets.GITHUB_TOKEN }}
-#          goos: linux
-#          goarch: amd64
-#          release_tag: 1.0.0
