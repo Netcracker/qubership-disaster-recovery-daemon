@@ -9,7 +9,7 @@ DRD provides the following features:
 
 ![DRD](./pic/drd.png)
 
-Example of DRD chart template is presented [here](https://git.netcracker.com/PROD.Platform.ElasticStack/opensearch-service/-/blob/master/charts/helm/opensearch-service/templates/operator/deployment.yaml#L71). 
+Example of DRD chart template is presented [here](https://github.com/Netcracker/opensearch-service/blob/main/charts/helm/opensearch-service/templates/operator/deployment.yaml#L71). 
 
 # Disaster Recovery Server
 
@@ -156,7 +156,7 @@ is applied to TokenReview request.
 
 Custom Resource with default paths:
 ```yaml
-apiVersion: netcracker.com/v1
+apiVersion: qubership.org/v1
 kind: MyService
 metadata:
   name: example-service
@@ -177,7 +177,7 @@ Environment Variables:
 - name: NAMESPACE
   value: 'my-namespace'
 - name: RESOURCE_FOR_DR
-  value: 'netcracker.com v1 myservices example-service'
+  value: 'qubership.org v1 myservices example-service'
 - name: USE_DEFAULT_PATHS
   value: 'true'
 - name: HEALTH_MAIN_SERVICES_ACTIVE
