@@ -17,8 +17,8 @@ package usecase
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/Netcracker/disaster-recovery-daemon/api/entity"
-	"github.com/Netcracker/disaster-recovery-daemon/config"
+	"github.com/Netcracker/qubership-disaster-recovery-daemon/api/entity"
+	"github.com/Netcracker/qubership-disaster-recovery-daemon/config"
 	"log"
 	"net/http"
 	"strings"

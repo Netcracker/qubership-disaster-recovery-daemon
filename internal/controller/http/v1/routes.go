@@ -3,8 +3,8 @@ package v1
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/Netcracker/disaster-recovery-daemon/api/entity"
-	"github.com/Netcracker/disaster-recovery-daemon/internal/usecase"
+	"github.com/Netcracker/qubership-disaster-recovery-daemon/api/entity"
+	"github.com/Netcracker/qubership-disaster-recovery-daemon/internal/usecase"
 	"github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
 	"io"

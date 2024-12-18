@@ -1,4 +1,4 @@
-module github.com/Netcracker/disaster-recovery-daemon
+module github.com/Netcracker/qubership-disaster-recovery-daemon
 
 go 1.22
 

@@ -15,8 +15,8 @@
 package usecase
 
 import (
-	"github.com/Netcracker/disaster-recovery-daemon/api/entity"
-	"github.com/Netcracker/disaster-recovery-daemon/config"
+	"github.com/Netcracker/qubership-disaster-recovery-daemon/api/entity"
+	"github.com/Netcracker/qubership-disaster-recovery-daemon/config"
 )
 
 func NewReadModeUseCase(crr KubernetesCustomResourceRepo, config config.DisasterRecoveryPath) *ReadModeUseCase {

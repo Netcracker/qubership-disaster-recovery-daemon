@@ -17,7 +17,7 @@ package httpserver
 import (
 	"crypto/tls"
 	"fmt"
-	"github.com/Netcracker/disaster-recovery-daemon/config"
+	"github.com/Netcracker/qubership-disaster-recovery-daemon/config"
 	"net/http"
 )
 

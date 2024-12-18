@@ -15,9 +15,9 @@
 package main
 
 import (
-	"github.com/Netcracker/disaster-recovery-daemon/config"
-	"github.com/Netcracker/disaster-recovery-daemon/server"
-	"github.com/Netcracker/disaster-recovery-daemon/utils"
+	"github.com/Netcracker/qubership-disaster-recovery-daemon/config"
+	"github.com/Netcracker/qubership-disaster-recovery-daemon/server"
+	"github.com/Netcracker/qubership-disaster-recovery-daemon/utils"
 	"log"
 	"log/slog"
 	"os"

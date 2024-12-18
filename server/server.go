@@ -15,9 +15,9 @@
 package server
 
 import (
-	"github.com/Netcracker/disaster-recovery-daemon/api/entity"
-	"github.com/Netcracker/disaster-recovery-daemon/config"
-	"github.com/Netcracker/disaster-recovery-daemon/internal/app"
+	"github.com/Netcracker/qubership-disaster-recovery-daemon/api/entity"
+	"github.com/Netcracker/qubership-disaster-recovery-daemon/config"
+	"github.com/Netcracker/qubership-disaster-recovery-daemon/internal/app"
 	"log"
 )
 
