@@ -11,7 +11,7 @@ on:
         description: "Publish image to ghcr.io"
         type: boolean
         default: true
-        required: falsex
+        required: false
 env:
   TAG_NAME: ${{ github.event.release.tag_name || github.ref }}
   PUSH: ${{ (github.event_name == 'workflow_dispatch' && inputs.publish_docker) || !startsWith(github.ref, 'refs/heads/dependabot') }}
