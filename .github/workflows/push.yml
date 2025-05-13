@@ -23,7 +23,7 @@ jobs:
       fail-fast: false
       matrix:
         component:
-          - name: disaster-recovery-daemon
+          - name: qubership-disaster-recovery-daemon
             file: docker/Dockerfile
     runs-on: ubuntu-latest
     steps:
