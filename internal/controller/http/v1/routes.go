@@ -65,11 +65,11 @@ func (sh *ServerHandler) authenticationWrapper(f func(w http.ResponseWriter, r *
 			if token == "" {
 				w.Header().Set("WWW-Authenticate", "Bearer")
 			}
+			w.WriteHeader(http.StatusUnauthorized)
 			_, err := w.Write([]byte("Access denied"))
 			if err != nil {
 				log.Printf("Can not write authentication response due to: %v", err)
 			}
-			w.WriteHeader(http.StatusUnauthorized)
 			return
 		}
 		f(w, r)
