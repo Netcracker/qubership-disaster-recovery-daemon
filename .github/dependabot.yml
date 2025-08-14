@@ -11,9 +11,3 @@ updates:
     directory: "/docker"
     schedule:
       interval: "weekly"
-
-  # GitHub Actions
-  - package-ecosystem: "github-actions"
-    directory: "/"
-    schedule:
-      interval: "weekly"
