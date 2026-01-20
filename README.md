@@ -9,7 +9,7 @@ DRD provides the following features:
 
 ![DRD](./pic/drd.png)
 
-Example of DRD chart template is presented [here](https://github.com/Netcracker/opensearch-service/blob/main/charts/helm/opensearch-service/templates/operator/deployment.yaml#L71). 
+Example of DRD chart template is presented [here](https://github.com/Netcracker/qubership-opensearch/blob/main/operator/charts/helm/opensearch-service/templates/operator/deployment.yaml#L71). 
 
 # Disaster Recovery Server
 
@@ -234,7 +234,7 @@ DRD extension is a golang application which starts server and controller with fu
 ## Extension Repository
 
 1. Make a repository or folder for your golang application.
-2. In `go.mod` add import `github.com/Netcracker/qubership-disaster-recovery-daemon` with actual [version](https://github.com/Netcracker/qubership-disaster-recovery-daemon/-/tags).
+2. In `go.mod` add import `github.com/Netcracker/qubership-disaster-recovery-daemon` with actual [version](https://github.com/Netcracker/qubership-disaster-recovery-daemon/tags).
 3. Implement `Main.go` which starts server and controller with function which implements custom DR logic and custom health check logic.
 4. Build a Docker image with your golang application.
 5. Add a new deployment or container for DRD application to your Helm chart, with corresponding [environment variables](#environment-variables).
