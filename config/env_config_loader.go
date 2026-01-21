@@ -254,7 +254,7 @@ func checkIfCipherSuiteSupported(name string) (uint16, error) {
 			return supportedSuite.ID, nil
 		}
 	}
-	return 0, fmt.Errorf("Unsupported cipher suite")
+	return 0, fmt.Errorf("unsupported cipher suite")
 }
 
 func (decl DefaultEnvConfigLoader) getRequiredEnv(key string) (string, error) {
@@ -292,10 +292,7 @@ func (decl DefaultEnvConfigLoader) getServicesEnv(key string, allowTypes ...stri
 func (decl DefaultEnvConfigLoader) GetAdditionalHealthStatusConfig() (AdditionalHealthStatusConfig, error) {
 	endpoint := decl.envProvider.GetEnv("ADDITIONAL_HEALTH_ENDPOINT", "")
 	fullHealthEnabledString := decl.envProvider.GetEnv("EXTERNAL_FULL_HEALTH_ENABLED", "false")
-	fullHealthEnabled := false
-	if strings.ToLower(fullHealthEnabledString) == "true" {
-		fullHealthEnabled = true
-	}
+	fullHealthEnabled := strings.ToLower(fullHealthEnabledString) == "true"
 	return AdditionalHealthStatusConfig{
 		Endpoint:          endpoint,
 		FullHealthEnabled: fullHealthEnabled,

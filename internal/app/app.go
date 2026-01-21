@@ -40,7 +40,7 @@ func Run(cfg *config.Config) {
 	httpClient := configureClient(fmt.Sprintf("%s/ca.crt", cfg.CertsPath))
 	kubernetesRepo := repo.NewKubernetesRepo(clientSet, cfg.Namespace)
 	crKubernetesRepo := repo.NewKubernetesCustomResourceRepo(dynClient, serviceGVR, cfg.Name, cfg.Namespace)
-	restClient := repo.NewRestClient(cfg.HealthConfig.AdditionalHealthStatusConfig.Endpoint, httpClient)
+	restClient := repo.NewRestClient(cfg.AdditionalHealthStatusConfig.Endpoint, httpClient)
 
 	healthUseCase := usecase.NewHealthUseCase(kubernetesRepo, crKubernetesRepo, cfg.HealthConfig, restClient)
 	readStateUseCase := usecase.NewReadModeUseCase(crKubernetesRepo, cfg.DisasterRecoveryPath)
