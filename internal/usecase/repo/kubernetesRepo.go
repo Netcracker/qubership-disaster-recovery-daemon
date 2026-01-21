@@ -41,9 +41,10 @@ func (kr KubernetesRepo) GetServiceStatus(services map[string][]string) (status 
 	for serviceType, names := range services {
 		var tmpReadyServiceNumber int
 		var tmpAllServiceNumber int
-		if serviceType == entity.DeploymentType {
+		switch serviceType {
+		case entity.DeploymentType:
 			tmpReadyServiceNumber, tmpAllServiceNumber, err = kr.getDeploymentData(names)
-		} else if serviceType == entity.StatefulsetType {
+		case entity.StatefulsetType:
 			tmpReadyServiceNumber, tmpAllServiceNumber, err = kr.getStatefulSetData(names)
 		}
 		if err != nil {

@@ -69,9 +69,9 @@ func (ctr *Controller) Run() {
 	}
 
 	resource := schema.GroupVersionResource{
-		Group:    ctr.config.CustomResourceConfig.Group,
-		Version:  ctr.config.CustomResourceConfig.Version,
-		Resource: ctr.config.CustomResourceConfig.Resource,
+		Group:    ctr.config.Group,
+		Version:  ctr.config.Version,
+		Resource: ctr.config.Resource,
 	}
 
 	dynClient := client.MakeDynamicClient()

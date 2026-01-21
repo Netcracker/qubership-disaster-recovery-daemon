@@ -30,8 +30,8 @@ func NewServer(config *config.Config) *Server {
 }
 
 func (srv *Server) WithHealthFunc(healthFunc func(request entity.HealthRequest) (entity.HealthResponse, error), fullHealth bool) *Server {
-	srv.config.HealthConfig.AdditionalHealthStatusConfig.HealthFunc = healthFunc
-	srv.config.HealthConfig.AdditionalHealthStatusConfig.FullHealthEnabled = fullHealth
+	srv.config.AdditionalHealthStatusConfig.HealthFunc = healthFunc
+	srv.config.AdditionalHealthStatusConfig.FullHealthEnabled = fullHealth
 	return srv
 }
 

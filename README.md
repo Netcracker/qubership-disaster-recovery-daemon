@@ -1,24 +1,24 @@
-
+# Qubership Disaster Recovery Daemon
 
 The `Qubership Disaster Recovery Daemon` (DRD) is a service that establishes communication between the Site Manager
 and the current cluster operator or disaster recovery controller.
 
 DRD provides the following features:
 * [Disaster Recovery Server](#disaster-recovery-server) implements Site Manager contract and manage current mode in DR resource.
-* [Disaster Recovery Controller](#disaster-recovery-controller) provides ability to implement DR controller for services without operator.
+* [Disaster Recovery Controller](#dr-controller) provides ability to implement DR controller for services without operator.
 
 ![DRD](./pic/drd.png)
 
-Example of DRD chart template is presented [here](https://github.com/Netcracker/opensearch-service/blob/main/charts/helm/opensearch-service/templates/operator/deployment.yaml#L71). 
+Example of DRD chart template is presented [DRD chart template in Qubership OpenSearch](https://github.com/Netcracker/qubership-opensearch/blob/main/operator/charts/helm/opensearch-service/templates/operator/deployment.yaml#L71).
 
 # Disaster Recovery Server
 
 ## Common Information
 
 DRD provides all REST endpoints to satisfy the `Site Manager` contract and
-takes data from Kubernetes Custom Resource, Kubernetes API. By default, the cluster operator manages this Custom Resource 
-and contains service switchover logic. DRD just triggers the cluster operator via Custom Resource changes. 
-DRD is delivered as a docker image and has a list of environment variables to configure it. 
+takes data from Kubernetes Custom Resource, Kubernetes API. By default, the cluster operator manages this Custom Resource
+and contains service switchover logic. DRD just triggers the cluster operator via Custom Resource changes.
+DRD is delivered as a docker image and has a list of environment variables to configure it.
 DRD can be deployed in the Kubernetes as a separated pod or as a side container for the operator pod.
 
 ## Environment variables
@@ -234,7 +234,7 @@ DRD extension is a golang application which starts server and controller with fu
 ## Extension Repository
 
 1. Make a repository or folder for your golang application.
-2. In `go.mod` add import `github.com/Netcracker/qubership-disaster-recovery-daemon` with actual [version](https://github.com/Netcracker/qubership-disaster-recovery-daemon/-/tags).
+2. In `go.mod` add import `github.com/Netcracker/qubership-disaster-recovery-daemon` with actual [version](https://github.com/Netcracker/qubership-disaster-recovery-daemon/tags).
 3. Implement `Main.go` which starts server and controller with function which implements custom DR logic and custom health check logic.
 4. Build a Docker image with your golang application.
 5. Add a new deployment or container for DRD application to your Helm chart, with corresponding [environment variables](#environment-variables).
