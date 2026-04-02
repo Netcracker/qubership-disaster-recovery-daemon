@@ -332,11 +332,11 @@ DRD REST server provides three methods of interaction:
   ```
 
   Where:
-    * Where `8068` is the default server port.
-    * `<MODE>` is the mode to be applied to the cluster side. The possible mode values are as follows:
-        * `active` - The service accepts external requests from clients.
-        * `standby` - The service does not accept external requests from clients.
-        * `disabled` - The service does not accept external requests from clients.
+  * Where `8068` is the default server port.
+  * `<MODE>` is the mode to be applied to the cluster side. The possible mode values are as follows:
+    * `active` - The service accepts external requests from clients.
+    * `standby` - The service does not accept external requests from clients.
+    * `disabled` - The service does not accept external requests from clients.
 
   The response to such a request is as follows:
 
@@ -345,9 +345,9 @@ DRD REST server provides three methods of interaction:
   ```
 
   Where:
-    * `mode` is the mode that is applied to the cluster side. The possible values are `active`, `standby`, and `disabled`.
-    * `status` is the state of the request on the REST server. The only possible value is `failed`, when something goes wrong while processing the request.
-    * `comment` is the message which contains a detailed description of the problem and is only filled out if the `status` value is `failed`.
+  * `mode` is the mode that is applied to the cluster side. The possible values are `active`, `standby`, and `disabled`.
+  * `status` is the state of the request on the REST server. The only possible value is `failed`, when something goes wrong while processing the request.
+  * `comment` is the message which contains a detailed description of the problem and is only filled out if the `status` value is `failed`.
 
 ## Authentication
 
@@ -467,7 +467,7 @@ DRD extension is a golang application which starts server and controller with fu
 
 To start custom server or controller you need to provide configuration object with necessary parameters.
 
-Configuration can be loaded from some kind of sources with implementing interface configuration loader `config.ConfigLoader`, 
+Configuration can be loaded from some kind of sources with implementing interface configuration loader `config.ConfigLoader`,
 by default DRD provides only environment variables configuration loader `config.DefaultEnvConfigLoader` which uses corresponding [environment variables](#environment-variables).
 
 ```go
@@ -541,13 +541,13 @@ func(controllerRequest entity.ControllerRequest) (entity.ControllerResponse, err
 * `status` is a result of performing DR operation. Type: `string`. Values: `done`, `running` or `failed`).  This is required field.
 * `comment` is a comment of performing DR operation. Type: `string`.
 
-The result of operation execution will be saved to DR Resource. 
+The result of operation execution will be saved to DR Resource.
 
-`WithRetry` takes number of attempts and delay for retry policy. 
+`WithRetry` takes number of attempts and delay for retry policy.
 Controller runs retry only if error happens during function execution, if function returned `failed` status, no retry is called.
 If no retry parameters are specified controller calls function only one time.
 
-## Example     
+## Example
 
 The below is an example of `Main.go` for custom resource [Config Map](#config-map) presented above:
 
