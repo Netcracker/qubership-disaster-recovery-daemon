@@ -11,7 +11,7 @@ DRD provides the following features:
 
 Example of DRD chart template is presented [DRD chart template in Qubership OpenSearch](https://github.com/Netcracker/qubership-opensearch/blob/main/operator/charts/helm/opensearch-service/templates/operator/deployment.yaml#L71).
 
-# Disaster Recovery Server
+## Disaster Recovery Server
 
 ## Common Information
 
@@ -23,33 +23,257 @@ DRD can be deployed in the Kubernetes as a separated pod or as a side container 
 
 ## Environment variables
 
-| Name                                  | Format                                                                                                                                                                                  | Description                                                                                                                                                                                                                                                                                                                                                 | Example                                             | Required                                                    |
-|---------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------|-------------------------------------------------------------|
-| NAMESPACE                             | A string.                                                                                                                                                                               | The name of service namespace.                                                                                                                                                                                                                                                                                                                              | rabbitmq-service                                    | `true`                                                      |
-| RESOURCE_FOR_DR                       | Four words in a single string separated by a single space.                                                                                                                              | This parameter specifies four values to find Kubernetes Custom Resource. These values are group, version, resource, and name of Custom Resource. First word, group, can be empty `""`.                                                                                                                                                                      | netcracker.com v2 rabbitmqservices rabbitmq-service | `true`                                                      |
-| USE_DEFAULT_PATHS                     | A single boolean word.                                                                                                                                                                  | If this parameter is `true` the default values are used instead of `DISASTER_RECOVERY_*` environment variable values.                                                                                                                                                                                                                                       | true                                                | `false`                                                     |
-| DISASTER_RECOVERY_MODE_PATH           | Several words separated by a dot.                                                                                                                                                       | This parameter specifies the path to disaster recovery `mode` field in Custom Resource.                                                                                                                                                                                                                                                                     | spec.disasterRecovery.mode                          | `true` if `USE_DEFAULT_PATHS` variable is not set to `true` |
-| DISASTER_RECOVERY_NOWAIT_PATH         | Several words separated by a dot.                                                                                                                                                       | This parameter specifies the path to disaster recovery `no-wait` field in Custom Resource.                                                                                                                                                                                                                                                                  | spec.disasterRecovery.noWait                        | `true` if `USE_DEFAULT_PATHS` variable is not set to `true` |
-| DISASTER_RECOVERY_STATUS_MODE_PATH    | Several words separated by a dot.                                                                                                                                                       | This parameter specifies the path to disaster recovery status `mode` field in Custom Resource.                                                                                                                                                                                                                                                              | status.disasterRecoveryStatus.mode                  | `true` if `USE_DEFAULT_PATHS` variable is not set to `true` |
-| DISASTER_RECOVERY_STATUS_STATUS_PATH  | Several words separated by a dot.                                                                                                                                                       | This parameter specifies the path to disaster recovery status `status` field in Custom Resource.                                                                                                                                                                                                                                                            | status.disasterRecoveryStatus.status                | `true` if `USE_DEFAULT_PATHS` variable is not set to `true` |
-| DISASTER_RECOVERY_STATUS_COMMENT_PATH | Several words separated by a dot.                                                                                                                                                       | This parameter specifies the path to disaster recovery status `comment` field in Custom Resource.                                                                                                                                                                                                                                                           | status.disasterRecoveryStatus.comment               | `false`                                                     |
-| DISASTER_RECOVERY_NOWAIT_AS_STRING    | A single boolean word.                                                                                                                                                                  | If this parameter is `true` the disaster recovery daemon uses string values for `no-wait` parameter, otherwise boolean value is used.                                                                                                                                                                                                                       | false                                               | `false`                                                     |
-| HEALTH_MAIN_SERVICES_ACTIVE           | Several word pairs separated by commas. Each pair contains two words separated by a single space. The first word is a Kubernetes workload type and the second one is the workload name. | This parameter specifies the main services for the health check on active side.                                                                                                                                                                                                                                                                             | deployment kafka-1,deployment kafka-2               | `true`                                                      |
-| HEALTH_ADDITIONAL_SERVICES_ACTIVE     | Several word pairs separated by commas. Each pair contains two words separated by a single space. The first word is a Kubernetes workload type and the second one is the workload name. | This parameter specifies the additional services for the health check on active side.                                                                                                                                                                                                                                                                       | deployment rabbitmq-backup-daemon                   | `false`                                                     |
-| HEALTH_MAIN_SERVICES_STANDBY          | Several word pairs separated by commas. Each pair contains two words separated by a single space. The first word is a Kubernetes workload type and the second one is the workload name. | This parameter specifies the main services for the health check on standby side. If the parameter is empty or is absent, the health status will be always `UP` on standby side.                                                                                                                                                                             | deployment kafka-1,deployment kafka-2               | `false`                                                     |
-| HEALTH_ADDITIONAL_SERVICES_STANDBY    | Several word pairs separated by commas. Each pair contains two words separated by a single space. The first word is a Kubernetes workload type and the second one is the workload name. | This parameter specifies the additional services for the health check on standby side.                                                                                                                                                                                                                                                                      | deployment rabbitmq-backup-daemon                   | `false`                                                     |
-| HEALTH_MAIN_SERVICES_DISABLED         | Several word pairs separated by commas. Each pair contains two words separated by a single space. The first word is a Kubernetes workload type and the second one is the workload name. | This parameter specifies the main services for the health check on `disable` side. If the parameter is empty or is absent, the health status will be always `UP` on `disable` side.                                                                                                                                                                         | deployment kafka-1,deployment kafka-2               | `false`                                                     |
-| HEALTH_ADDITIONAL_SERVICES_DISABLED   | Several word pairs separated by commas. Each pair contains two words separated by a single space. The first word is a Kubernetes workload type and the second one is the workload name. | This parameter specifies the additional services for the health check on `disable` side.                                                                                                                                                                                                                                                                    | deployment rabbitmq-backup-daemon                   | `false`                                                     |
-| SITE_MANAGER_SERVICE_ACCOUNT_NAME     | A single word.                                                                                                                                                                          | This parameter specifies the Site Manager service account name.                                                                                                                                                                                                                                                                                             | site-manager                                        | `false`                                                     |
-| SITE_MANAGER_NAMESPACE                | A single word.                                                                                                                                                                          | This parameter specifies the Site Manager namespace.                                                                                                                                                                                                                                                                                                        | site-manager                                        | `false`                                                     |
-| SITE_MANAGER_CUSTOM_AUDIENCE          | A single word.                                                                                                                                                                          | This parameter specifies the Site Manager custom audience applied for token during authntication.                                                                                                                                                                                                                                                           | sm-services                                         | `false`                                                     |
-| SERVER_PORT                           | A number.                                                                                                                                                                               | This parameter specifies the DRD server port. The default value is `8068`.                                                                                                                                                                                                                                                                                  | 8069                                                | `false`                                                     |
-| ADDITIONAL_HEALTH_ENDPOINT            | A string.                                                                                                                                                                               | This parameter specifies additional health endpoint. The endpoint response contains information about full cluster health state (if `EXTERNAL_FULL_HEALTH_ENABLED` is `true`) or additional cluster health state (if `EXTERNAL_FULL_HEALTH_ENABLED` is `false`). In the second case, the result will be calculate as `HEALTH_ADDITIONAL_SERVICES` variable. | http://(POD_IP):8069/healthz                        | `false`                                                     |
-| EXTERNAL_FULL_HEALTH_ENABLED          | A boolean string.                                                                                                                                                                       | If this parameter is `true` the `ADDITIONAL_HEALTH_ENDPOINT` variable will be used as external full health endpoint. In this case all `HEALTH_*` environment variables are not necessary.                                                                                                                                                                   | true                                                | `false`                                                     |
-| TLS_ENABLED                           | A boolean string.                                                                                                                                                                       | If this parameter is `true` TLS will be enabled for DRD container.                                                                                                                                                                                                                                                                                          | false                                               | `false`                                                     |
-| CERTS_PATH                            | Path string.                                                                                                                                                                            | This parameter specifies path to folder with TLS certificates in DRD container.                                                                                                                                                                                                                                                                             | /tls/                                               | `false`                                                     |
-| CIPHER_SUITES                         | Comma-separated list of strings. Each word is suite name supported by GO e.g. `TLS_RSA_WITH_3DES_EDE_CBC_SHA`                                                                           | This parameter specifies the list of cipher suites that are used to negotiate the security settings for a network connection using TLS or SSL network protocol                                                                                                                                                                                              | ""                                                  | `false`                                                     |
-| TREAT_STATUS_AS_FIELD                 | A boolean.                                                                                                                                                                              | This parameter specifies whether resource status should be treated as field. It is necessary when initially `DISASTER_RECOVERY_STATUS_STATUS_PATH` does not have Status sub-resource. In that case status is set as a field to chosen resource. For example, it may be applicable for some of custom resources or ConfigMaps.                               | false                                               | `false`                                                     |
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Format</th>
+      <th>Description</th>
+      <th>Example</th>
+      <th>Required</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>NAMESPACE</code></td>
+      <td>A string.</td>
+      <td>The name of service namespace.</td>
+      <td><code>rabbitmq-service</code></td>
+      <td><code>true</code></td>
+    </tr>
+    <tr>
+      <td><code>RESOURCE_FOR_DR</code></td>
+      <td>Four words in a single string separated by a single space.</td>
+      <td>
+        This parameter specifies four values to find Kubernetes Custom Resource.
+        These values are group, version, resource, and name of Custom Resource.
+        First word, group, can be empty <code>""</code>.
+      </td>
+      <td><code>netcracker.com v2 rabbitmqservices rabbitmq-service</code></td>
+      <td><code>true</code></td>
+    </tr>
+    <tr>
+      <td><code>USE_DEFAULT_PATHS</code></td>
+      <td>A single boolean word.</td>
+      <td>
+        If this parameter is <code>true</code> the default values are used instead of
+        <code>DISASTER_RECOVERY_*</code> environment variable values.
+      </td>
+      <td><code>true</code></td>
+      <td><code>false</code></td>
+    </tr>
+    <tr>
+      <td><code>DISASTER_RECOVERY_MODE_PATH</code></td>
+      <td>Several words separated by a dot.</td>
+      <td>This parameter specifies the path to disaster recovery <code>mode</code> field in Custom Resource.</td>
+      <td><code>spec.disasterRecovery.mode</code></td>
+      <td><code>true</code> if <code>USE_DEFAULT_PATHS</code> variable is not set to <code>true</code></td>
+    </tr>
+    <tr>
+      <td><code>DISASTER_RECOVERY_NOWAIT_PATH</code></td>
+      <td>Several words separated by a dot.</td>
+      <td>This parameter specifies the path to disaster recovery <code>no-wait</code> field in Custom Resource.</td>
+      <td><code>spec.disasterRecovery.noWait</code></td>
+      <td><code>true</code> if <code>USE_DEFAULT_PATHS</code> variable is not set to <code>true</code></td>
+    </tr>
+    <tr>
+      <td><code>DISASTER_RECOVERY_STATUS_MODE_PATH</code></td>
+      <td>Several words separated by a dot.</td>
+      <td>
+        This parameter specifies the path to disaster recovery status <code>mode</code> field in Custom Resource.
+      </td>
+      <td><code>status.disasterRecoveryStatus.mode</code></td>
+      <td><code>true</code> if <code>USE_DEFAULT_PATHS</code> variable is not set to <code>true</code></td>
+    </tr>
+    <tr>
+      <td><code>DISASTER_RECOVERY_STATUS_STATUS_PATH</code></td>
+      <td>Several words separated by a dot.</td>
+      <td>
+        This parameter specifies the path to disaster recovery status <code>status</code> field in Custom Resource.
+      </td>
+      <td><code>status.disasterRecoveryStatus.status</code></td>
+      <td><code>true</code> if <code>USE_DEFAULT_PATHS</code> variable is not set to <code>true</code></td>
+    </tr>
+    <tr>
+      <td><code>DISASTER_RECOVERY_STATUS_COMMENT_PATH</code></td>
+      <td>Several words separated by a dot.</td>
+      <td>This parameter specifies the path to disaster recovery status <code>comment</code> field in Custom Resource.</td>
+      <td><code>status.disasterRecoveryStatus.comment</code></td>
+      <td><code>false</code></td>
+    </tr>
+    <tr>
+      <td><code>DISASTER_RECOVERY_NOWAIT_AS_STRING</code></td>
+      <td>A single boolean word.</td>
+      <td>
+        If this parameter is <code>true</code> the disaster recovery daemon uses string values for <code>no-wait</code> parameter,
+        otherwise boolean value is used.
+      </td>
+      <td><code>false</code></td>
+      <td><code>false</code></td>
+    </tr>
+    <tr>
+      <td><code>HEALTH_MAIN_SERVICES_ACTIVE</code></td>
+      <td>
+        Several word pairs separated by commas.
+        Each pair contains two words separated by a single space.
+        The first word is a Kubernetes workload type and the second one is the workload name.
+      </td>
+      <td>The list of main services for the health check on active side.</td>
+      <td><code>deployment kafka-1,deployment kafka-2</code></td>
+      <td><code>true</code></td>
+    </tr>
+    <tr>
+      <td><code>HEALTH_ADDITIONAL_SERVICES_ACTIVE</code></td>
+      <td>
+        Several word pairs separated by commas.
+        Each pair contains two words separated by a single space.
+        The first word is a Kubernetes workload type and the second one is the workload name.
+      </td>
+      <td>The list of additional services for the health check on active side.</td>
+      <td><code>deployment rabbitmq-backup-daemon</code></td>
+      <td><code>false</code></td>
+    </tr>
+    <tr>
+      <td><code>HEALTH_MAIN_SERVICES_STANDBY</code></td>
+      <td>
+        Several word pairs separated by commas.
+        Each pair contains two words separated by a single space.
+        The first word is a Kubernetes workload type and the second one is the workload name.
+      </td>
+      <td>
+        The list of main services for the health check on standby side.
+        If the parameter is empty or is absent, the health status will be always <code>UP</code> on standby side.
+      </td>
+      <td><code>deployment kafka-1,deployment kafka-2</code></td>
+      <td><code>false</code></td>
+    </tr>
+    <tr>
+      <td><code>HEALTH_ADDITIONAL_SERVICES_STANDBY</code></td>
+      <td>
+        Several word pairs separated by commas.
+        Each pair contains two words separated by a single space.
+        The first word is a Kubernetes workload type and the second one is the workload name.
+      </td>
+      <td>The list of additional services for the health check on standby side.</td>
+      <td><code>deployment rabbitmq-backup-daemon</code></td>
+      <td><code>false</code></td>
+    </tr>
+    <tr>
+      <td><code>HEALTH_MAIN_SERVICES_DISABLED</code></td>
+      <td>
+        Several word pairs separated by commas.
+        Each pair contains two words separated by a single space.
+        The first word is a Kubernetes workload type and the second one is the workload name.
+      </td>
+      <td>
+        The list of main services for the health check on <code>disable</code> side.
+        If the parameter is empty or is absent, the health status will be always <code>UP</code> on <code>disable</code> side.
+      </td>
+      <td><code>deployment kafka-1,deployment kafka-2</code></td>
+      <td><code>false</code></td>
+    </tr>
+    <tr>
+      <td><code>HEALTH_ADDITIONAL_SERVICES_DISABLED</code></td>
+      <td>
+        Several word pairs separated by commas.
+        Each pair contains two words separated by a single space.
+        The first word is a Kubernetes workload type and the second one is the workload name.
+      </td>
+      <td>The list of additional services for the health check on <code>disable</code> side.</td>
+      <td><code>deployment rabbitmq-backup-daemon</code></td>
+      <td><code>false</code></td>
+    </tr>
+    <tr>
+      <td><code>SITE_MANAGER_SERVICE_ACCOUNT_NAME</code></td>
+      <td>A single word.</td>
+      <td>This parameter specifies the Site Manager service account name.</td>
+      <td><code>site-manager</code></td>
+      <td><code>false</code></td>
+    </tr>
+    <tr>
+      <td><code>SITE_MANAGER_NAMESPACE</code></td>
+      <td>A single word.</td>
+      <td>This parameter specifies the Site Manager namespace.</td>
+      <td><code>site-manager</code></td>
+      <td><code>false</code></td>
+    </tr>
+    <tr>
+      <td><code>SITE_MANAGER_CUSTOM_AUDIENCE</code></td>
+      <td>A single word.</td>
+      <td>This parameter specifies the Site Manager custom audience applied for token during authntication.</td>
+      <td><code>sm-services</code></td>
+      <td><code>false</code></td>
+    </tr>
+    <tr>
+      <td><code>SERVER_PORT</code></td>
+      <td>A number.</td>
+      <td>This parameter specifies the DRD server port. The default value is <code>8068</code>.</td>
+      <td><code>8069</code></td>
+      <td><code>false</code></td>
+    </tr>
+    <tr>
+      <td><code>ADDITIONAL_HEALTH_ENDPOINT</code></td>
+      <td>A string.</td>
+      <td>
+        This parameter specifies additional health endpoint.
+        The endpoint response contains information about full cluster health state (if <code>EXTERNAL_FULL_HEALTH_ENABLED</code> is
+        <code>true</code>) or additional cluster health state (if <code>EXTERNAL_FULL_HEALTH_ENABLED</code> is <code>false</code>).
+        In the second case, the result will be calculate as <code>HEALTH_ADDITIONAL_SERVICES</code> variable.
+      </td>
+      <td><code>http://(POD_IP):8069/healthz</code></td>
+      <td><code>false</code></td>
+    </tr>
+    <tr>
+      <td><code>EXTERNAL_FULL_HEALTH_ENABLED</code></td>
+      <td>A boolean string.</td>
+      <td>
+        If this parameter is <code>true</code> the <code>ADDITIONAL_HEALTH_ENDPOINT</code> variable will be used as external full
+        health endpoint. In this case all <code>HEALTH_*</code> environment variables are not necessary.
+      </td>
+      <td><code>true</code></td>
+      <td><code>false</code></td>
+    </tr>
+    <tr>
+      <td><code>TLS_ENABLED</code></td>
+      <td>A boolean string.</td>
+      <td>If this parameter is <code>true</code> TLS will be enabled for DRD container.</td>
+      <td><code>false</code></td>
+      <td><code>false</code></td>
+    </tr>
+    <tr>
+      <td><code>CERTS_PATH</code></td>
+      <td>Path string.</td>
+      <td>This parameter specifies path to folder with TLS certificates in DRD container.</td>
+      <td><code>/tls/</code></td>
+      <td><code>false</code></td>
+    </tr>
+    <tr>
+      <td><code>CIPHER_SUITES</code></td>
+      <td>
+        Comma-separated list of strings.
+        Each word is suite name supported by GO e.g. <code>TLS_RSA_WITH_3DES_EDE_CBC_SHA</code>
+      </td>
+      <td>
+        This parameter specifies the list of cipher suites that are used to negotiate the security settings for a network
+        connection using TLS or SSL network protocol.
+      </td>
+      <td><code>""</code></td>
+      <td><code>false</code></td>
+    </tr>
+    <tr>
+      <td><code>TREAT_STATUS_AS_FIELD</code></td>
+      <td>A boolean.</td>
+      <td>
+        This parameter specifies whether resource status should be treated as field.
+        It is necessary when initially <code>DISASTER_RECOVERY_STATUS_STATUS_PATH</code> does not have Status sub-resource.
+        In that case status is set as a field to chosen resource.
+        For example, it may be applicable for some of custom resources or ConfigMaps.
+      </td>
+      <td><code>false</code></td>
+      <td><code>false</code></td>
+    </tr>
+  </tbody>
+</table>
 
 ## REST API
 
@@ -57,7 +281,7 @@ DRD REST server provides three methods of interaction:
 
 * `GET` `healthz` method allows finding out the state of the current cluster side.
 
-  ```
+  ```bash
   curl -XGET localhost:8068/healthz
   ```
 
@@ -70,15 +294,15 @@ DRD REST server provides three methods of interaction:
   ```
 
   Where:
-    * `status` is the current state of the cluster side. The four possible status values are as follows:
-        * `up` - All service's workloads are ready.
-        * `degraded` - Some of the service's workloads (the main health service or additional health service) are not ready.
-        * `down` - The main health service is down.
-        * `disabled` - The service is switched off.
+  * `status` is the current state of the cluster side. The four possible status values are as follows:
+    * `up` - All service's workloads are ready.
+    * `degraded` - Some of the service's workloads (the main health service or additional health service) are not ready.
+    * `down` - The main health service is down.
+    * `disabled` - The service is switched off.
 
 * `GET` `sitemanager` method allows finding out the mode of the current cluster side and the actual state of the switchover procedure.
 
-  ```
+  ```bash
   curl -XGET localhost:8068/sitemanager
   ```
 
@@ -91,28 +315,28 @@ DRD REST server provides three methods of interaction:
   ```
 
   Where:
-    * `mode` is the mode in which the cluster side is deployed. The possible mode values are as follows:
-        * `active` - The service accepts external requests from clients.
-        * `standby` - The service does not accept external requests from clients.
-        * `disabled` - The service does not accept external requests from clients.
-    * `status` is the current state of switchover for the service cluster side. The three possible status values are as follows:
-        * `running` - The switchover is in progress.
-        * `done` - The switchover is successful.
-        * `failed` - Something went wrong during the switchover.
-    * `comment` is the message which contains a detailed description of the problem.
+  * `mode` is the mode in which the cluster side is deployed. The possible mode values are as follows:
+    * `active` - The service accepts external requests from clients.
+    * `standby` - The service does not accept external requests from clients.
+    * `disabled` - The service does not accept external requests from clients.
+  * `status` is the current state of switchover for the service cluster side. The three possible status values are as follows:
+    * `running` - The switchover is in progress.
+    * `done` - The switchover is successful.
+    * `failed` - Something went wrong during the switchover.
+  * `comment` is the message which contains a detailed description of the problem.
 
 * `POST` `sitemanager` method allows switching mode for the current side of the service cluster.
 
-  ```
+  ```bash
   curl -XPOST -H "Content-Type: application/json" localhost:8068/sitemanager -d '{"mode":"<MODE>"}'
   ```
 
   Where:
-    * Where `8068` is the default server port.
-    * `<MODE>` is the mode to be applied to the cluster side. The possible mode values are as follows:
-        * `active` - The service accepts external requests from clients.
-        * `standby` - The service does not accept external requests from clients.
-        * `disabled` - The service does not accept external requests from clients.
+  * Where `8068` is the default server port.
+  * `<MODE>` is the mode to be applied to the cluster side. The possible mode values are as follows:
+    * `active` - The service accepts external requests from clients.
+    * `standby` - The service does not accept external requests from clients.
+    * `disabled` - The service does not accept external requests from clients.
 
   The response to such a request is as follows:
 
@@ -121,24 +345,24 @@ DRD REST server provides three methods of interaction:
   ```
 
   Where:
-    * `mode` is the mode that is applied to the cluster side. The possible values are `active`, `standby`, and `disabled`.
-    * `status` is the state of the request on the REST server. The only possible value is `failed`, when something goes wrong while processing the request.
-    * `comment` is the message which contains a detailed description of the problem and is only filled out if the `status` value is `failed`.
+  * `mode` is the mode that is applied to the cluster side. The possible values are `active`, `standby`, and `disabled`.
+  * `status` is the state of the request on the REST server. The only possible value is `failed`, when something goes wrong while processing the request.
+  * `comment` is the message which contains a detailed description of the problem and is only filled out if the `status` value is `failed`.
 
-# Authentication
+## Authentication
 
 All the DRD SM endpoints can be secured via Kubernetes JWT Service Account Tokens. A Site Manager Kubernetes token should be specified in the Request Header.
 Examples for DRD REST endpoints:
 
-  ```
+  ```bash
   curl -XGET -H "Authorization: Bearer <TOKEN>" localhost:8068/healthz
   ```
 
-  ```
+  ```bash
   curl -XGET -H "Authorization: Bearer <TOKEN>" localhost:8068/sitemanager
   ```
 
-  ```
+  ```bash
   curl -XPOST -H "Content-Type: application/json, Authorization: Bearer <TOKEN>" localhost:8068/sitemanager -d '{"mode":"<MODE>"}'
   ```
 
@@ -150,7 +374,7 @@ If these environment variables are not specified, the authentication will be dis
 If authentication is enabled and the `SITE_MANAGER_CUSTOM_AUDIENCE` environment variable is specified, then custom audience
 is applied to TokenReview request.
 
-# Example of Configurations
+## Example of Configurations
 
 ## Custom Resource
 
@@ -225,7 +449,7 @@ Environment Variables:
   value: 'StatefulSet example-service'
 ```
 
-# Disaster Recovery Extension
+## Disaster Recovery Extension
 
 Disaster Recovery Daemon provides an ability to implement controller for watching changes of Disaster Recovery resource for cases when service does not have its own operator.
 
@@ -243,7 +467,7 @@ DRD extension is a golang application which starts server and controller with fu
 
 To start custom server or controller you need to provide configuration object with necessary parameters.
 
-Configuration can be loaded from some kind of sources with implementing interface configuration loader `config.ConfigLoader`, 
+Configuration can be loaded from some kind of sources with implementing interface configuration loader `config.ConfigLoader`,
 by default DRD provides only environment variables configuration loader `config.DefaultEnvConfigLoader` which uses corresponding [environment variables](#environment-variables).
 
 ```go
@@ -317,13 +541,13 @@ func(controllerRequest entity.ControllerRequest) (entity.ControllerResponse, err
 * `status` is a result of performing DR operation. Type: `string`. Values: `done`, `running` or `failed`).  This is required field.
 * `comment` is a comment of performing DR operation. Type: `string`.
 
-The result of operation execution will be saved to DR Resource. 
+The result of operation execution will be saved to DR Resource.
 
-`WithRetry` takes number of attempts and delay for retry policy. 
+`WithRetry` takes number of attempts and delay for retry policy.
 Controller runs retry only if error happens during function execution, if function returned `failed` status, no retry is called.
 If no retry parameters are specified controller calls function only one time.
 
-## Example     
+## Example
 
 The below is an example of `Main.go` for custom resource [Config Map](#config-map) presented above:
 
@@ -331,61 +555,61 @@ The below is an example of `Main.go` for custom resource [Config Map](#config-ma
 package main
 
 import (
-	"context"
-	"github.com/Netcracker/qubership-disaster-recovery-daemon/api/entity"
-	"github.com/Netcracker/qubership-disaster-recovery-daemon/client"
-	"github.com/Netcracker/qubership-disaster-recovery-daemon/config"
-	"github.com/Netcracker/qubership-disaster-recovery-daemon/controller"
-	"github.com/Netcracker/qubership-disaster-recovery-daemon/server"
-	"k8s.io/api/core/v1"
-	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
-	"log"
+    "context"
+    "github.com/Netcracker/qubership-disaster-recovery-daemon/api/entity"
+    "github.com/Netcracker/qubership-disaster-recovery-daemon/client"
+    "github.com/Netcracker/qubership-disaster-recovery-daemon/config"
+    "github.com/Netcracker/qubership-disaster-recovery-daemon/controller"
+    "github.com/Netcracker/qubership-disaster-recovery-daemon/server"
+    "k8s.io/api/core/v1"
+    metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+    "k8s.io/apimachinery/pkg/runtime"
+    "log"
 )
 
 func main() {
-	// Make a config loader
-	cfgLoader := config.GetDefaultEnvConfigLoader()
+    // Make a config loader
+    cfgLoader := config.GetDefaultEnvConfigLoader()
 
-	// Build a config
-	cfg, err := config.NewConfig(cfgLoader)
-	if err != nil {
-		log.Fatalln(err.Error())
-	}
+    // Build a config
+    cfg, err := config.NewConfig(cfgLoader)
+    if err != nil {
+        log.Fatalln(err.Error())
+    }
 
-	// Easy way to create a kubernetes client if necessary
-	kubeClient := client.MakeKubeClientSet()
+    // Easy way to create a kubernetes client if necessary
+    kubeClient := client.MakeKubeClientSet()
 
-	// Start DRD server with custom health function inside. This func calculates only additional health status (fullHealth: false)
-	go server.NewServer(cfg).
-		WithHealthFunc(func(request entity.HealthRequest) (entity.HealthResponse, error) {
-			// Do some health check logic, e,g, using kubernetes client kubeClient.CoreV1()...
-			return entity.HealthResponse{Status: entity.UP}, nil
-		}, false).
-		Run()
+    // Start DRD server with custom health function inside. This func calculates only additional health status (fullHealth: false)
+    go server.NewServer(cfg).
+        WithHealthFunc(func(request entity.HealthRequest) (entity.HealthResponse, error) {
+            // Do some health check logic, e,g, using kubernetes client kubeClient.CoreV1()...
+            return entity.HealthResponse{Status: entity.UP}, nil
+        }, false).
+        Run()
 
-	// Start DRD controller with external DR function
-	controller.NewController(cfg).
-		WithFunc(drFunction).
-		Run()
+    // Start DRD controller with external DR function
+    controller.NewController(cfg).
+        WithFunc(drFunction).
+        Run()
 }
 
 // DR function implementation
 func drFunction(controllerRequest entity.ControllerRequest) (entity.ControllerResponse, error) {
-	var configMap v1.ConfigMap
-	// Convert unstructured object to expected type (ConfigMap in our case)
-	err := runtime.DefaultUnstructuredConverter.FromUnstructured(controllerRequest.Object, &configMap)
-	if err != nil {
-		return entity.ControllerResponse{}, err
-	}
-	// Do some DR logic
-	return entity.ControllerResponse{
-		SwitchoverState: entity.SwitchoverState{
-			Mode:    controllerRequest.Mode,
-			Status:  entity.DONE,
-			Comment: "switchover successfully done",
-		},
-	}, nil
+    var configMap v1.ConfigMap
+    // Convert unstructured object to expected type (ConfigMap in our case)
+    err := runtime.DefaultUnstructuredConverter.FromUnstructured(controllerRequest.Object, &configMap)
+    if err != nil {
+        return entity.ControllerResponse{}, err
+    }
+    // Do some DR logic
+    return entity.ControllerResponse{
+        SwitchoverState: entity.SwitchoverState{
+            Mode:    controllerRequest.Mode,
+            Status:  entity.DONE,
+            Comment: "switchover successfully done",
+        },
+    }, nil
 }
 
 ```
