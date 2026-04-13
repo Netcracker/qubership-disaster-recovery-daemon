@@ -53,7 +53,7 @@ RUN set -x && apk upgrade --no-cache --available
 RUN echo "https://dl-cdn.alpinelinux.org/alpine/edge/main" > /etc/apk/repositories  \
     && echo "https://dl-cdn.alpinelinux.org/alpine/edge/community" >> /etc/apk/repositories \
     && apk add --update --upgrade --no-cache \
-        libcurl curl libcrypto3 libssl3 nghttp2-libs
+        libcurl curl libcrypto3 libssl3 nghttp2-libs musl-utils
 
 USER 1000:0
 
