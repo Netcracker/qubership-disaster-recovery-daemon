@@ -50,6 +50,9 @@ RUN set -x \
 # Upgrade all tools to avoid vulnerabilities
 RUN set -x && apk upgrade --no-cache --available
 
+RUN apk add --update --upgrade --no-cache \
+        libcurl curl libcrypto3 libssl3 nghttp2-libs musl-utils
+
 
 USER 1000:0
 
