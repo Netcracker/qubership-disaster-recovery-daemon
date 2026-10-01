@@ -1,6 +1,6 @@
 # Build the manager binary
 # Note: this uses host platform for the build, and we ask go build to target the needed platform, so we do not spend time on qemu emulation when running "go build"
-FROM --platform=$BUILDPLATFORM golang:1.26-alpine3.24 as builder
+FROM --platform=$BUILDPLATFORM golang:1.27-alpine3.24 as builder
 ARG BUILDPLATFORM
 ARG TARGETOS
 ARG TARGETARCH
@@ -51,7 +51,7 @@ RUN set -x \
 RUN set -x && apk upgrade --no-cache --available
 
 RUN apk add --update --upgrade --no-cache \
-        libcurl curl libcrypto3 libssl3 nghttp2-libs musl-utils
+        libcurl curl libcrypto3 libssl3 c-ares nghttp2-libs musl-utils
 
 
 USER 1000:0
